@@ -1,0 +1,214 @@
+<div class="container">
+  <!-- <button class="btn btn-warning" (click)="ABC()" >tfybuinoi</button> -->
+  <mat-card>
+    <mat-card-title class="text-center">Add details</mat-card-title>
+    <form [formGroup]="addForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col col-md-6">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" placeholder="Enter your name"
+              [formControlName]="'name'">
+            <mat-error
+              *ngIf="this.addForm.get('name')?.errors?.['required']"> Name must
+              be required</mat-error>
+            
+            <mat-error
+              *ngIf="this.addForm.get('name')?.errors?.['noWhitespaceValidator']">do
+              not use space started</mat-error>
+            <mat-error *ngIf="this.addForm.get('name')?.errors?.['minlength']">name
+              should have a min length of 3 alphabets</mat-error>
+            <mat-error *ngIf="this.addForm.get('name')?.errors?.['maxlength']">name
+              should have a max length of 25 alphabets</mat-error>
+          </mat-form-field>
+          <!-- <ng-container *ngFor="let error of error_messages .name">
+            <div class="error-message"
+              *ngIf="addForm.get('name')?.hasError(error.type) &&
+              (addForm.get('name')?.dirty ||
+              addForm.get('name')?.touched)">
+              {{ error.message }}
+            </div>
+          </ng-container> -->
+        </div>
+        <div class="col col-md-6">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Phone No</mat-label>
+            <input matInput type="tel" placeholder="enter phone no"
+              formControlName="phoneNo">
+            <mat-error
+              *ngIf="this.addForm.get('phoneNo')?.errors?.['required']"> phone
+              no must be required</mat-error>
+            <mat-error
+              *ngIf="this.addForm.get('phoneNo')?.errors?.['phoneNumberValidator']">phone
+              number must be 10 digits</mat-error>
+          </mat-form-field>
+          <!-- <ng-container *ngFor="let error of error_messages .phoneNo">
+            <div class="error-message"
+              *ngIf="addForm.get('phoneNo')?.hasError(error.type) &&
+              (addForm.get('phoneNo')?.dirty ||
+              addForm.get('phoneNo')?.touched)">
+              {{ error.messege }}
+            </div>
+          </ng-container> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-md-6">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Pan No</mat-label>
+            <input matInput type="text" formControlName="panNo">
+            <mat-error
+              *ngIf="this.addForm.get('panNo')?.errors?.['required']"> Pan no
+              must be required</mat-error>
+            <mat-error
+              *ngIf="this.addForm.get('panNo')?.errors?.['panValidator']">Pan no
+              must be 5 alphabets 4 numbers 1 alphabet</mat-error>
+          </mat-form-field>
+          <!-- <ng-container *ngFor="let error of error_messages .panNo">
+              <div class="error-message"
+                *ngIf="addForm.get('panNo')?.hasError(error.type) &&
+                (addForm.get('panNo')?.dirty ||
+                addForm.get('panNo')?.touched)">
+                {{ error.messege }}
+              </div>
+
+            </ng-container> -->
+        </div>
+        <div class="col col-md-6">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Adhar No</mat-label>
+            <input matInput type="text" formControlName="adharNo">
+            <mat-error
+              *ngIf="this.addForm.get('adharNo')?.errors?.['required']"> Aadhar
+              no must be required</mat-error>
+            <mat-error
+              *ngIf="this.addForm.get('adharNo')?.errors?.['aadharValidator']">Adhar
+              no must be 12 digits</mat-error>
+
+          </mat-form-field>
+          <!-- <ng-container *ngFor="let error of error_messages .adharNo">
+              <div class="error-message"
+                *ngIf="addForm.get('adharNo')?.hasError(error.type) &&
+                (addForm.get('adharNo')?.dirty ||
+                addForm.get('adharNo')?.touched)">
+                {{ error.messege }}
+              </div>
+            </ng-container> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-md-6">
+          <mat-label>Photo upload</mat-label>
+          <input type="file" (change)="uploadFile($event)"
+            formControlName="imageupload" class="form-control mb-2"
+            accept="image/*">
+
+          <!-- <ng-container *ngFor="let error of error_messages .imageupload">
+              <div class="error-message"
+                *ngIf="addForm.get('imageupload')?.hasError(error.type) &&
+                (addForm.get('imageupload')?.dirty ||
+                addForm.get('imageupload')?.touched)">
+                {{ error.messege }}
+              </div>
+            </ng-container> -->
+        </div>
+        <div class="col col-md-6">
+          <mat-form-field class="example-full-width" style="width: 100%;">
+            <mat-label>Address</mat-label>
+            <textarea matInput placeholder="Ex. 100 Main St"
+              formControlName="address"></textarea>
+            <mat-error
+              *ngIf="this.addForm.get('address')?.errors?.['required']">Address
+              must be required.</mat-error>
+          </mat-form-field>
+          <!-- <ng-container *ngFor="let error of error_messages .adress">
+              <div class="error-message"
+                *ngIf="addForm.get('address')?.hasError(error.type) &&
+                (addForm.get('address')?.dirty ||
+                addForm.get('address')?.touched)">
+                {{ error.messege }}
+              </div>
+            </ng-container> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-md-6">
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Select country</mat-label>
+            <mat-select formControlName="country" (selectionChange)="CONSOLE1($event)"  >
+              <mat-option
+                *ngFor="let countries of getallcountries"
+                [value]="countries._id"
+                >
+                {{ countries.country
+                }}
+
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="this.addForm.get('country')?.errors?.['required']">Country
+              must be required.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col col-md-6">
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Select state</mat-label>
+            <mat-select (click)="CONSOLE2($event)" formControlName="state">
+              <mat-option
+                [value]="item.name"
+                *ngFor="let item of states; let idx= index"
+                (click)="CONSOLE2(idx)">
+                {{ item.name
+                }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="this.addForm.get('state')?.errors?.['required']">State must
+              be required must be required.</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-md-6">
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Select city</mat-label>
+            <mat-select (click)="CONSOLE3($event)">
+              <mat-option
+                [value]="item.name"
+                *ngFor="let item of cities; let idx= index">
+                {{ item.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="this.addForm.get('district')?.errors?.['required']">district
+              must be required must be required.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col col-md-6">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Pincode</mat-label>
+            <input type="text" matInput
+              formControlName="pincode">
+            <mat-error
+              *ngIf="this.addForm.get('pincode')?.errors?.['required']">pin code
+              must be required must be required.</mat-error>
+
+            <mat-error
+              *ngIf="this.addForm.get('pincode')?.errors?.['pinCodeValidator']">Pincode
+              must be 6 digits</mat-error>
+          </mat-form-field>
+          <!-- <ng-container *ngFor="let error of error_messages .pincode">
+              <div class="error-message"
+                *ngIf="addForm.get('pincode')?.hasError(error.type) &&
+                (addForm.get('pincode')?.dirty ||
+                addForm.get('pincode')?.touched)">
+                {{ error.messege }}
+              </div>
+            </ng-container> -->
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+  </mat-card>
+</div>
+<router-outlet></router-outlet>
